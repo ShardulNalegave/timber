@@ -815,6 +815,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "timber-collect"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "clap",
+ "log",
+ "pretty_env_logger",
+ "serde_json",
+ "timber-common",
+ "timber-net",
+ "tokio",
+]
+
+[[package]]
 name = "timber-common"
 version = "0.1.0"
 dependencies = [
