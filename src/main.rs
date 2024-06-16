@@ -1,11 +1,12 @@
 
 pub mod errors;
 pub mod cli;
+pub mod admin;
+pub mod master;
 
 // ===== Imports =====
 #[macro_use] extern crate log;
 #[macro_use] extern crate clap;
-#[macro_use] extern crate anyhow;
 #[macro_use] extern crate thiserror;
 
 use anyhow::Result;
@@ -19,7 +20,7 @@ async fn main() -> Result<()> {
   let cli_args = cli::Cli::parse();
 
   match &cli_args.command {
-    Commands::Run => {},
+    Commands::Run(args) => cli::run::run(args).await?,
     Commands::Init { path } => cli::init::init_instance(path).await?,
   };
 
