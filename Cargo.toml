@@ -6,13 +6,21 @@ edition = "2021"
 [dependencies]
 log = "0.4"
 pretty_env_logger = "0.5"
-dotenv = "0.15.0"
 anyhow = "1"
+thiserror = "1"
 axum = "0.7"
+serde_json = "1"
 
 [dependencies.tokio]
 version = "1"
 features = ["full"]
 
+[dependencies.clap]
+version = "4.5.7"
+features = ["derive"]
+
 [dependencies.timber-net]
 path = "./timber-net"
+
+[dependencies.timber-common]
+path = "./timber-common"

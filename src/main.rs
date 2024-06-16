@@ -1,29 +1,27 @@
 
+pub mod errors;
+pub mod cli;
+
 // ===== Imports =====
 #[macro_use] extern crate log;
+#[macro_use] extern crate clap;
+#[macro_use] extern crate anyhow;
+#[macro_use] extern crate thiserror;
+
 use anyhow::Result;
-use axum::{routing::get, Router};
-use dotenv::dotenv;
-use tokio::net::TcpListener;
+use clap::Parser;
+use cli::Commands;
 // ===================
 
 #[tokio::main]
 async fn main() -> Result<()> {
-  dotenv()?;
   pretty_env_logger::init_custom_env("TIMBER_LOG");
-  
-  let addr = std::env::var("TIMBER_ADDR")?;
-  
-  let router = Router::new()
-    .route("/", get(index));
+  let cli_args = cli::Cli::parse();
 
-  info!("Listening at {}", addr);
-  let lis = TcpListener::bind(addr).await?;
-  axum::serve(lis, router).await?;
+  match &cli_args.command {
+    Commands::Run => {},
+    Commands::Init { path } => cli::init::init_instance(path).await?,
+  };
 
   Ok(())
-}
-
-async fn index() -> &'static str {
-  "Hello, World!"
 }

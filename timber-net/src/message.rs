@@ -1,10 +1,4 @@
 
-pub mod metadata;
-use metadata::Metadata;
-
-pub mod introduction;
-use introduction::WorkerIntroduction;
-
 // ===== Imports =====
 use anyhow::Result;
 use bytes::Bytes;
@@ -13,8 +7,8 @@ use bytes::Bytes;
 #[derive(Clone, Debug, Serialize, Deserialize)]
 #[serde(tag = "$message_kind")]
 pub enum Message {
-  Metadata(Metadata),
-  WorkerIntroduction(WorkerIntroduction),
+  Metadata(timber_common::metadata::Metadata),
+  WorkerIntroduction(timber_common::worker::WorkerIntroduction),
   SubscribeToTopic { topic: String },
   PublishToTopic { topic: String },
 }
